@@ -1,30 +1,34 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <!-- Check the current route -->
+    <div v-if="showDrawer">
+      <Drawer />
+    </div>
+    <router-view />
+  </div>
 </template>
+
+<script>
+import Home from "@/views/Home.vue"; // Import the Drawer component
+
+export default {
+  name: "App",
+  computed: {
+    // Determines whether the drawer should be displayed
+    showDrawer() {
+      // Define the routes where the drawer should be displayed
+      const drawerRoutes = ["home", "dashboard", "about-us", "weather"];
+      return drawerRoutes.includes(this.$route.name);
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 </style>
