@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Signup',
   data() {
@@ -76,21 +78,32 @@ export default {
     };
   },
   methods: {
-    handleSignup() {
-      if (this.password === this.rePassword) {
-        alert(`Welcome, ${this.name}! Signup successful.`);
-        // Redirect to login after successful signup
-        this.$router.push("/login");
-      } else {
+    async handleSignup() {
+      if (this.password !== this.rePassword) {
         alert("Passwords do not match. Please try again.");
+        return;
+      }
+
+      try {
+        const response = await axios.post('http://localhost:1337/signup', {
+          email: this.email,
+          fullname: this.name,
+          password: this.password
+        });
+        
+        alert(response.data.message); // "User created successfully"
+        this.$router.push("/");
+      } catch (error) {
+        alert('Signup failed. Please try again.');
       }
     },
     goToLogin() {
-      // Navigate to the login page
-      this.$router.push("/");
+      this.$router.push("/login");
     }
   }
 }
+
+
 </script>
 
 <style scoped lang="scss">

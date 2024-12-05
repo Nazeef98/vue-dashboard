@@ -30,6 +30,13 @@
       Don't have an account? 
       <button @click="goToSignup">Sign up</button>
     </p>
+
+    <!-- Public Page Button -->
+    <div class="public-page-btn-container">
+      <button class="public-page-btn" @click="goToPublicPage">
+        Visit Public Page
+      </button>
+    </div>
   </div>
 </template>
 
@@ -45,7 +52,7 @@ export default {
   methods: {
     handleLogin() {
       if (this.email && this.password) {
-        // Navigate to the login logic or dashboard page after login
+        // Navigate to the home page after login
         this.$router.push("/home");
       } else {
         alert("Please fill in all fields.");
@@ -54,6 +61,10 @@ export default {
     goToSignup() {
       // Redirect to the signup page
       this.$router.push("/signup");
+    },
+    goToPublicPage() {
+      // Redirect to the public page
+      this.$router.push("/public-page");
     },
   },
 };
@@ -123,5 +134,25 @@ button:hover {
 
 .signup-link button:hover {
   text-decoration: underline;
+}
+
+/* Public Page Button Styles */
+.public-page-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.public-page-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.public-page-btn:hover {
+  background-color: #0056b3;
 }
 </style>
